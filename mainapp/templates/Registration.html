@@ -1,0 +1,156 @@
+
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Shop Homepage - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/shop-homepage.css" rel="stylesheet">
+
+</head>
+<style>
+    body {
+      padding-top: 56px;
+      font-family: 'Oswald', sans-serif;
+      background-color:#A7FFBA;
+
+    }
+    a{
+        color:black;
+    }
+    a:hover{
+        color:#FFFFFF;
+    }
+     .py-5{
+      background-color:#BEE094;
+      padding-top:20px!important;
+      padding-bottom:20px!important;
+    }
+</style>
+<body>
+
+  <!-- Navigation -->
+   <nav class="navbar navbar-expand-lg   fixed-top" style="background-color:#BEE094;color:black">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'base' %}"><img src='\media\icon.png'>Здравница</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+          {% if not request.user.is_authenticated%}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Авторизация</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'Registration' %}">Регистрация</a>
+          </li>
+          {%endif%}
+
+
+          <li class="nav-item">
+            {% if  request.user.is_authenticated%}<span class="navbar text text-light">Здравствуйте,
+          <span class="badge badge-pill badge-danger"><a class="nav-link" href="#">{{request.user.username}}</a></span>
+            <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+          </span>
+
+          {%endif%}
+          </li>
+
+
+          <li class="nav-item">
+           <a class="nav-link" href="{% url 'cart' %}"><img src="\media\cartn.png"> <span class="badge badge-pill badge-danger">{{ cart.products.count }}</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-12">
+
+
+
+          {% block content %}
+    <div class="row justify-content-center" style="margin-top: 50px;margin-bottom:50px;">
+    <div class="col-md-6 offset-md-12">
+        <h3 class="text-center">Регистрация</h3>
+        <hr>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-success " style='width:100%;' value="Регистрация" >
+        </form>
+
+</div>
+
+{% endblock content%}
+
+        </div>
+        <!-- /.row -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5">
+    <div class="container">
+         <div class="row">
+
+                    <div class="col-lg-6 ">
+
+                        <div class="credits">
+                            <h5 style="color:black;text-align:center">Наши контакты:</h5>
+                            <h5 style="color:black;text-align:center">ул.Ленина,101</h5>
+                            <h5 style="color:black;text-align:center">WhatsApp: +7-954-228-13-37</h5>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6 ">
+
+                        <div class="credits">
+                            <h5 style="color:black; text-align:center">Социальные сети:</h5>
+                            <a href="https://www.instagram.com/"><h5 style="color: red;text-align:center">Instagram</h5></a>
+                             <a href="https://www.vk.com/"><h5 style="color:red;text-align:center">Вконтанте</h5></a>
+                        </div>
+
+                    </div>
+
+    </div>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
